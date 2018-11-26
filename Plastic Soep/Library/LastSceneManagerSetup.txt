@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< Updated upstream
 - path: Assets/Scenes/Test Scenes/Rick.unity
+=======
+- path: Assets/Scenes/Test Scenes/Youri.unity
+>>>>>>> Stashed changes
   isLoaded: 1
   isActive: 1
