@@ -18,7 +18,7 @@ public abstract class Destination : MonoBehaviour, IDestination {
     private bool _selected;
     private Renderer _renderer;
 
-    private void Start()
+    private void Awake()
     {
         _renderer = GetComponent<Renderer>();
         _defaultMaterial = _renderer.material;
