@@ -24,6 +24,7 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int score)
     {
         _score += score;
+        Debug.Log("Score: " + _score);
     }
 
     private void Update()
@@ -36,6 +37,8 @@ public class ScoreManager : MonoBehaviour
 
             else if (_displayScore > _score)
                 _displayScore--;
+
+            _updateTimer = _updateTime;
         }
 
         _scoreDisplay.text = "Score: " + _displayScore;
