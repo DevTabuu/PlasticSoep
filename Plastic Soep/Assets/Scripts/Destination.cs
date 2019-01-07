@@ -10,7 +10,7 @@ public abstract class Destination : MonoBehaviour, IDestination {
     private Material _defaultMaterial;
 
     [SerializeField]
-    private Vector3 _destinationOffset;
+    private Transform _destinationLocation;
 
     [SerializeField]
     private float _ariveRange;
@@ -32,7 +32,10 @@ public abstract class Destination : MonoBehaviour, IDestination {
 
     public Vector3 GetPosition()
     {
-        return transform.position + _destinationOffset;
+        if (_destinationLocation != null)
+            return _destinationLocation.position;
+        else
+            return transform.position;
     }
 
     public float GetRange()

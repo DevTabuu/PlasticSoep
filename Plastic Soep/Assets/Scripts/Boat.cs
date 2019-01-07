@@ -36,7 +36,6 @@ public abstract class Boat : MonoBehaviour, INavigatable {
             case BoatState.NAVIGATING:
                 if (Vector3.Distance(_destination.GetPosition(), transform.position) <= _destination.GetRange())
                 {
-
                     if (_destination is ICollectable)
                     {
                         SetState(BoatState.COLLECTING);
@@ -44,16 +43,13 @@ public abstract class Boat : MonoBehaviour, INavigatable {
                         _collectingTimer = _collecting.GetCollectingDuration();
                     }                       
                     else
-                    {
                         _state = BoatState.IDLE;
-                    }
 
                     _destination.OnArive(this);
                     _destination.SetSelected(false);
                     SetSelected(false);
                     _destination = null;
                 }
-
                 break;
 
             case BoatState.COLLECTING:
@@ -114,9 +110,7 @@ public abstract class Boat : MonoBehaviour, INavigatable {
     public bool CanNavigateTo(IDestination destination)
     {
         if (destination is ICollectable)
-        {
             return CanCollect(destination as ICollectable);
-        }
         return true;
     }
 }
