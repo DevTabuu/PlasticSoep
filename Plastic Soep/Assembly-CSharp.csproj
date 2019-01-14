@@ -69,12 +69,13 @@
     <Compile Include="Assets\Scripts\Collectables\TrashIsland.cs" />
     <Compile Include="Assets\Scripts\Destination.cs" />
     <Compile Include="Assets\Scripts\Dialog\DialogMessage.cs" />
-    <Compile Include="Assets\Scripts\DialogManager.cs" />
-    <Compile Include="Assets\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\DialogManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\WaterManager.cs" />
     <Compile Include="Assets\Scripts\Port.cs" />
-    <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\SelectCircle.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
-    <Compile Include="Assets\Scripts\WaterManager.cs" />
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>C:/Users/rickv/OneDrive/Bureaublad/Projecten/project clone/PlasticSoep/Plastic Soep/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
     </Reference>

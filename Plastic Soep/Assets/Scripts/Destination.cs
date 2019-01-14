@@ -6,8 +6,7 @@ using UnityEngine;
 public abstract class Destination : MonoBehaviour, IDestination {
 
     [SerializeField]
-    Material _selectedMaterial;
-    private Material _defaultMaterial;
+    SelectCircle _selectCircle;
 
     [SerializeField]
     private Transform _destinationLocation;
@@ -16,18 +15,20 @@ public abstract class Destination : MonoBehaviour, IDestination {
     private float _ariveRange;
 
     private bool _selected;
-    private Renderer _renderer;
 
-    private void Awake()
+    private void Start()
     {
-        _renderer = GetComponent<Renderer>();
-        _defaultMaterial = _renderer.material;
+        if (_destinationLocation == null)
+            _destinationLocation = transform;
     }
 
     public void SetSelected(bool selected)
     {
-        _selected = selected;
-        _renderer.material = selected ? _selectedMaterial : _defaultMaterial;
+        if(_selectCircle != null)
+        {
+            _selected = selected;
+            _selectCircle.gameObject.SetActive(selected);
+        }
     }
 
     public Vector3 GetPosition()
@@ -41,6 +42,11 @@ public abstract class Destination : MonoBehaviour, IDestination {
     public float GetRange()
     {
         return _ariveRange;
+    }
+
+    public bool IsSelected()
+    {
+        return _selected;
     }
 
     public virtual void OnArive(INavigatable navigatable) { }
