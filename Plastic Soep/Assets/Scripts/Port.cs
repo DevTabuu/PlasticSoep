@@ -10,6 +10,9 @@ public class Port : Destination {
     {
         GameObject manager = GameObject.FindGameObjectWithTag("Manager");
         _scoreManager = manager.GetComponent<ScoreManager>();
+
+        DialogManager _dialogManager = manager.GetComponent<DialogManager>();
+        _dialogManager.ShowDialog(transform, "Bring fish and garbage to me!", 5);
     }
 
     public override void OnArive(INavigatable navigatable)

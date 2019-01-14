@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
-public abstract class Boat : MonoBehaviour, INavigatable {
-
-    [SerializeField]
-    private Material _selectedMaterial;
-    private Material _defaultMaterial;
+public abstract class Boat : Selectable, INavigatable {
 
     [SerializeField]
     private float _movementSpeed;
@@ -18,14 +14,13 @@ public abstract class Boat : MonoBehaviour, INavigatable {
     private float _cargoWeight = 0;
 
     private float _collectingTimer;
-    private ICollectable _collecting;
+    private Collectable _collecting;
 
-    private IDestination _destination;
+    private Destination _destination;
     private BoatState _state;
 
     private void Start()
     {
-        _defaultMaterial = GetComponent<Renderer>().material;
         _state = BoatState.IDLE;
     }
 
@@ -36,10 +31,10 @@ public abstract class Boat : MonoBehaviour, INavigatable {
             case BoatState.NAVIGATING:
                 if (Vector3.Distance(_destination.GetPosition(), transform.position) <= _destination.GetRange())
                 {
-                    if (_destination is ICollectable)
+                    if (_destination is Collectable)
                     {
                         SetState(BoatState.COLLECTING);
-                        _collecting = _destination as ICollectable;
+                        _collecting = _destination as Collectable;
                         _collectingTimer = _collecting.GetCollectingDuration();
                     }                       
                     else
@@ -91,7 +86,7 @@ public abstract class Boat : MonoBehaviour, INavigatable {
         _cargoWeight = 0f;
     }
 
-    public void NavigateTo(IDestination destination)
+    public void NavigateTo(Destination destination)
     {
         if (CanNavigateTo(destination))
         {
@@ -100,17 +95,12 @@ public abstract class Boat : MonoBehaviour, INavigatable {
         }
     }
 
-    public void SetSelected(bool selected)
-    {
-        GetComponent<Renderer>().material = selected ? _selectedMaterial : _defaultMaterial;
-    }
+    public abstract bool CanCollect(Collectable collectable);
 
-    public abstract bool CanCollect(ICollectable collectable);
-
-    public bool CanNavigateTo(IDestination destination)
+    public bool CanNavigateTo(Destination destination)
     {
-        if (destination is ICollectable)
-            return CanCollect(destination as ICollectable);
+        if (destination is Collectable)
+            return CanCollect(destination as Collectable);
         return true;
     }
 }

@@ -11,19 +11,11 @@ public class DialogManager : MonoBehaviour {
     [SerializeField]
     private Canvas _canvas;
 
-    [SerializeField]
-    private Transform _transform;
-
     Dictionary<DialogMessage, float> _timers;
 
     private void Awake()
     {
         _timers = new Dictionary<DialogMessage, float>();
-    }
-
-    private void Start()
-    {
-        ShowDialog(_transform, "Hello", 5);
     }
 
     public void ShowDialog(Transform target, string message, float time)

@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
-public abstract class Destination : MonoBehaviour, IDestination {
-
-    [SerializeField]
-    SelectCircle _selectCircle;
+public abstract class Destination : Selectable, IDestination {
 
     [SerializeField]
     private Transform _destinationLocation;
@@ -14,21 +11,10 @@ public abstract class Destination : MonoBehaviour, IDestination {
     [SerializeField]
     private float _ariveRange;
 
-    private bool _selected;
-
     private void Start()
     {
         if (_destinationLocation == null)
             _destinationLocation = transform;
-    }
-
-    public void SetSelected(bool selected)
-    {
-        if(_selectCircle != null)
-        {
-            _selected = selected;
-            _selectCircle.gameObject.SetActive(selected);
-        }
     }
 
     public Vector3 GetPosition()
@@ -42,11 +28,6 @@ public abstract class Destination : MonoBehaviour, IDestination {
     public float GetRange()
     {
         return _ariveRange;
-    }
-
-    public bool IsSelected()
-    {
-        return _selected;
     }
 
     public virtual void OnArive(INavigatable navigatable) { }

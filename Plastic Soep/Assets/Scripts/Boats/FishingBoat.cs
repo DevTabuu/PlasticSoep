@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishingBoat : Boat {
 
-    public override bool CanCollect(ICollectable collectable)
+    public override bool CanCollect(Collectable collectable)
     {
         return collectable is FishingArea;
     }

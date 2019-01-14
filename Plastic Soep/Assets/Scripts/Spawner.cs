@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour {
@@ -10,25 +11,26 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     private GameObject _spawnedCollectable;
 
-    [SerializeField]
-    private float _minSpawnRange;
+    private Transform[] _spawnLocations;
 
-    [SerializeField]
-    private float _maxSpawnRange;
-
-    public void Spawn()
+    private void Start()
     {
-        float range = _maxSpawnRange - _minSpawnRange;
-        float x = Random.Range(-range, range);
-        float z = Random.Range(-range, range);
+        _spawnLocations = GetComponentsInChildren<Transform>();
+    }
 
-        if(Random.value >= 0.5)
-            x += x < 0 ? (_minSpawnRange * -1) : _minSpawnRange;
-        else
-            z += z < 0 ? (_minSpawnRange * -1) : _minSpawnRange;
+    public GameObject Spawn()
+    {
+        System.Random r = new System.Random();
+        foreach (int i in Enumerable.Range(0, _spawnLocations.Length).OrderBy(x => r.Next()))
+        {
+            Transform transform = _spawnLocations[i];
+            if (transform.childCount == 0)
+            {
+                return Instantiate(_spawnedCollectable, transform);
+            }
+        }
 
-        Vector3 spawnLocation = new Vector3(x, transform.position.y, z);
-        Instantiate(_spawnedCollectable, spawnLocation, Quaternion.identity, _parent);
+        return null;
     }
 
     private void Update()

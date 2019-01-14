@@ -16,7 +16,7 @@ public class InputManager : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        foreach (ISelectable select in FindObjectsOfType<MonoBehaviour>().OfType<ISelectable>())
+        foreach (Selectable select in FindObjectsOfType<MonoBehaviour>().OfType<Selectable>())
         {
             if (!(select is INavigatable && _controlling.ContainsValue(select as INavigatable)))
                 select.SetSelected(false);
@@ -26,12 +26,12 @@ public class InputManager : MonoBehaviour {
         {
             GameObject hitGameObject = hit.transform.gameObject;
 
-            ISelectable selectable = hitGameObject.GetComponent<ISelectable>();
+            Selectable selectable = hitGameObject.GetComponent<Selectable>();
             if (selectable != null)
             {
                 if (selectable is INavigatable && !_controlling.ContainsKey(0))
                     selectable.SetSelected(true);
-                else if (selectable is IDestination && _controlling.ContainsKey(0) && _controlling[0].CanNavigateTo(selectable as IDestination))
+                else if (selectable is Destination && _controlling.ContainsKey(0) && _controlling[0].CanNavigateTo(selectable as Destination))
                     selectable.SetSelected(true);
             }
 
@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour {
 
             else if (Input.GetMouseButtonUp(0))
             {
-                IDestination destination = hitGameObject.GetComponent<IDestination>();
+                Destination destination = hitGameObject.GetComponent<Destination>();
                 if (destination != null && _controlling.ContainsKey(0))
                 {
                     INavigatable navigatable = _controlling[0];
@@ -62,13 +62,13 @@ public class InputManager : MonoBehaviour {
     }
 }
 
-public interface INavigatable : ISelectable
+public interface INavigatable
 {
-    bool CanNavigateTo(IDestination destination);
-    void NavigateTo(IDestination destination);
+    bool CanNavigateTo(Destination destination);
+    void NavigateTo(Destination destination);
 }
 
-public interface IDestination : ISelectable
+public interface IDestination
 {
     Vector3 GetPosition();
 
