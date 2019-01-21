@@ -15,6 +15,8 @@ public class WaterManager : MonoBehaviour {
 
     private float _fishSpawnTimer, _trashSpawnTimer, _fishTimer, _trashTimer;
 
+    private float _incrementValue;
+
     private void Start()
     {
         _fishSwarms = new List<GameObject>();
@@ -28,35 +30,52 @@ public class WaterManager : MonoBehaviour {
 
     void Update()
     {
+        SpawnStuff();
+
+        for (int i = 0; i < _fishSwarms.Count; i++)
+        {
+            ProgressionCircle pc;
+
+            if (_fishSwarms[i] != null)
+                pc = _fishSwarms[i].GetComponent<ProgressionCircle>();
+            else
+                pc = null;
+
+            if (pc != null)
+                pc.SetCutoff(_fishValue);
+        }
+
+        for (int i = 0; i < _trashIslands.Count; i++)
+        {
+            ProgressionCircle pc;
+
+            if (_trashIslands[i] != null)
+                pc = _trashIslands[i].GetComponent<ProgressionCircle>();
+            else
+                pc = null;
+
+            if(pc != null)
+                pc.SetCutoff(_trashValue);
+        }
+    }
+
+    #region Spawning
+
+    private void SpawnStuff()
+    {
         _fishTimer += Time.deltaTime;
         _trashTimer += Time.deltaTime;
 
-        CalculateFishSpawnTime();
-
-        if(_trashTimer >= _trashSpawnTimer)
+        if (_trashTimer >= _trashSpawnTimer)
         {
             AddTrashIsland(_trashSpawner.Spawn());
             _trashTimer = 0;
         }
 
-        if(_fishTimer >= CalculateFishSpawnTime())
+        if (_fishTimer >= _fishSpawnTimer)
         {
             AddFishSwarm(_fishSpawner.Spawn());
             _fishTimer = 0;
-        }
-
-        for (int i = 0; i < _fishSwarms.Count; i++)
-        {
-            ProgressionCircle pc = _fishSwarms[i].GetComponent<ProgressionCircle>();
-
-            pc.SetCutoff(_fishValue);
-        }
-
-        for (int i = 0; i < _trashIslands.Count; i++)
-        {
-            ProgressionCircle pc = _trashIslands[i].GetComponent<ProgressionCircle>();
-
-            pc.SetCutoff(_trashValue);
         }
     }
 
@@ -70,15 +89,27 @@ public class WaterManager : MonoBehaviour {
         _trashIslands.Add(go);
     }
 
-    private float CalculateFishSpawnTime()
+    public void AddToFishTimer(float value)
     {
-        foreach(GameObject trashIsland in _trashIslands)
-        {
-            _fishSpawnTimer *= 1.2f;
-            return _fishSpawnTimer;
-        }
+        _incrementValue = value / 10;
 
-        return _fishSpawnTimer;
+        _fishSpawnTimer *= (1 + _incrementValue);
     }
+    
+
+    public void RemoveFromFishTimer(float originalIncrementValue)
+    {
+        float decreaseValue = (100 / (100 + (originalIncrementValue * 10)));
+
+        _fishSpawnTimer = (_fishSpawnTimer * decreaseValue);
+    }
+
+    #endregion
+
+    #region Circle
+
+
+
+    #endregion
 }
 
