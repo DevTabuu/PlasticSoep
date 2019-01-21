@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectCircle: {fileID: 114025479678934552}
   _destinationLocation: {fileID: 0}
-  _ariveRange: 2
+  _ariveRange: 6
   _collectingDuration: 1
   _weight: 0.297
 --- !u!212 &212199078873004932

@@ -19,7 +19,7 @@ public abstract class Boat : Selectable, INavigatable {
     private Destination _destination;
     private BoatState _state;
 
-    private void Start()
+    protected virtual void Start()
     {
         _state = BoatState.IDLE;
     }
@@ -67,7 +67,7 @@ public abstract class Boat : Selectable, INavigatable {
             Vector3 position = _destination.GetPosition();
             position.y = transform.position.y;
             transform.LookAt(position);
-            transform.Translate(Vector3.forward * Time.fixedDeltaTime * ((1 - GetCargoWeight()) * _movementSpeed));
+            transform.Translate(Vector3.forward * Time.fixedDeltaTime * ((2 - GetCargoWeight()) * _movementSpeed));
         }
     }
 
