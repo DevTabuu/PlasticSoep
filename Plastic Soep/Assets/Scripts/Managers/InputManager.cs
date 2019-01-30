@@ -66,14 +66,13 @@ public interface INavigatable
 {
     bool CanNavigateTo(Destination destination);
     void NavigateTo(Destination destination);
+    void OnArive(IDestination destination);
 }
 
 public interface IDestination
 {
     Vector3 GetPosition();
-
     float GetRange();
-
     void OnArive(INavigatable navigatable);
 }
 

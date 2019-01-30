@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 public abstract class Destination : Selectable, IDestination {
 
     [SerializeField]

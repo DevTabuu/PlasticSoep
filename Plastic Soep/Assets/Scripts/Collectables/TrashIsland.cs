@@ -10,11 +10,11 @@ public class TrashIsland : Collectable {
     {
         _waterManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<WaterManager>();
 
-        _waterManager.AddToFishTimer(2.5f);
+        // _waterManager.AddToFishTimer(2.5f);
     }
 
     private void OnDestroy()
     {
-        _waterManager.RemoveFromFishTimer(2.5f);
+        // _waterManager.RemoveFromFishTimer(2.5f);
     }
 }

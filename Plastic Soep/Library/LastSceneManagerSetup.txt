@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Test Scenes/Youri.unity
+=======
+- path: Assets/Scenes/Test Scenes/Rick.unity
+>>>>>>> master
   isLoaded: 1
   isActive: 1
