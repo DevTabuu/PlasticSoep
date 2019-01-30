@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Port : Destination {
 
+    [SerializeField]
+    Animator animator;
+
     ScoreManager _scoreManager;
 
     private void Start()
@@ -19,6 +22,7 @@ public class Port : Destination {
     {
         if(navigatable is Boat)
         {
+            animator.SetTrigger("Collecting");
             Boat boat = navigatable as Boat;
 
             if(boat is FishingBoat)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 public abstract class Boat : Selectable, INavigatable {
 
     [SerializeField]
@@ -10,6 +9,9 @@ public abstract class Boat : Selectable, INavigatable {
 
     [SerializeField]
     private float _collectingSpeed;
+
+    [SerializeField]
+    private Animator _animator;
 
     private float _cargoWeight = 0;
 
@@ -73,6 +75,8 @@ public abstract class Boat : Selectable, INavigatable {
 
     public void SetState(BoatState state)
     {
+        _animator.SetInteger("State", (int) state);
+
         _state = state;
     }
 
@@ -102,6 +106,11 @@ public abstract class Boat : Selectable, INavigatable {
         if (destination is Collectable)
             return CanCollect(destination as Collectable);
         return true;
+    }
+
+    public void OnArive(IDestination destination)
+    {
+
     }
 }
 
