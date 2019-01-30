@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaterManager : MonoBehaviour {
 
@@ -13,9 +14,11 @@ public class WaterManager : MonoBehaviour {
     [SerializeField]
     private Spawner _fishSpawner, _trashSpawner;
 
-    private float _fishSpawnTimer, _trashSpawnTimer, _fishTimer, _trashTimer;
+    private float _fishSpawnTimer, _trashSpawnTimer, _fishTimer, _trashTimer, _fishValueIncreaseTimer, _trashValueIncreaseTimer;
 
     private float _incrementValue;
+
+    private float _waterPercentage, _trashPercentage, _fishPercentage;
 
     private void Start()
     {
@@ -26,6 +29,12 @@ public class WaterManager : MonoBehaviour {
         _trashSpawnTimer = 1;
         _fishTimer = 0;
         _trashTimer = 0;
+        _trashValueIncreaseTimer = 0;
+        _trashValueIncreaseTimer = 0;
+
+        _waterPercentage = 100;
+        _trashPercentage = 0;
+        _fishPercentage = 0;
     }
 
     void Update()
@@ -42,7 +51,7 @@ public class WaterManager : MonoBehaviour {
                 pc = null;
 
             if (pc != null)
-                pc.SetCutoff(_fishValue);
+                pc.Complete();
         }
 
         for (int i = 0; i < _trashIslands.Count; i++)
@@ -54,8 +63,8 @@ public class WaterManager : MonoBehaviour {
             else
                 pc = null;
 
-            if(pc != null)
-                pc.SetCutoff(_trashValue);
+            if (pc != null)
+                pc.Complete();
         }
     }
 
@@ -108,7 +117,30 @@ public class WaterManager : MonoBehaviour {
 
     #region Circle
 
+    private void CalculateRelativeTo(float waterPercent, float trashPercent, float fishPercent)
+    {
+        for (int i = 0; i < _trashIslands.Count; i++)
+        {
+            _trashValueIncreaseTimer += Time.deltaTime;
 
+            if(_trashValueIncreaseTimer >= 1)
+            {
+                _trashPercentage += 1;
+                _trashValueIncreaseTimer = 0;
+            }
+        }
+
+        for (int i = 0; i < _fishSwarms.Count; i++)
+        {
+            _fishValueIncreaseTimer += Time.deltaTime;
+
+            if (_fishValueIncreaseTimer >= 1)
+            {
+                _fishPercentage += 1;
+                _fishValueIncreaseTimer = 0;
+            }
+        }
+    }
 
     #endregion
 }

@@ -1,32 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Renderer))]
+
 public class ProgressionCircle : MonoBehaviour {
 
     [SerializeField]
-    private Color _color;
+    private GameObject _ObjectToFollow;
 
-    private float _cutoff;
+    private Image _image;
 
-    private Renderer _renderer;
+    public float _Completion = 0;
 
     private void Start()
     {
-        _renderer = GetComponent<Renderer>();
+        _image = GetComponent<Image>();      
     }
 
-    public void SetCutoff(float cutoff)
+    private void Update()
     {
-        _cutoff = cutoff;
+        _image.fillAmount = (_Completion / 100);
 
-        _renderer.material.SetColor("_Color", _color);
-        _renderer.material.SetFloat("_Cutoff", _cutoff);
+        if(_ObjectToFollow != null)
+        {
+            transform.position = new Vector3(_ObjectToFollow.transform.position.x, transform.position.y, _ObjectToFollow.transform.position.z);
+        }
     }
 
-    public float GetCutoff()
+    public void Complete()
     {
-        return _cutoff;
+        _Completion += (Time.deltaTime / 5);
     }
 }
