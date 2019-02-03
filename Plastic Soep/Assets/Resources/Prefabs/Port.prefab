@@ -666,15 +666,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1217688434396864}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.14546704, y: 0.03876221, z: -2.4490724}
+  m_LocalRotation: {x: -0, y: 0.0777572, z: -0, w: 0.9969723}
+  m_LocalPosition: {x: 1.5499296, y: 0.129, z: -2.2581453}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615030374970642}
   - {fileID: 4992261087382002}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 8.919001, z: 0}
 --- !u!4 &4197003773573352
 Transform:
   m_ObjectHideFlags: 1
@@ -1255,7 +1255,7 @@ Animator:
   m_GameObject: {fileID: 1838181108718610}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0afecefe6022e3d4c8448800e2033652, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 71cab173855a81045adc8bb7804e0939, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1277,7 +1277,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectCircle: {fileID: 114560494635955170}
   _destinationLocation: {fileID: 4992261087382002}
-  _ariveRange: 0.1
+  _ariveRange: 0.2
+  animator: {fileID: 95181779003654280}
 --- !u!114 &114560494635955170
 MonoBehaviour:
   m_ObjectHideFlags: 1
